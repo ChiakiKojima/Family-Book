@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('mypage', 'UserController@mypage')->name('mypage');
+Route::get('mypage/edit', 'UserController@edit')->name('userEdit');
