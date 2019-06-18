@@ -18,3 +18,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('mypage', 'UserController@mypage')->name('mypage');
 Route::get('mypage/edit', 'UserController@edit')->name('userEdit');
+
+Route::post('/upload', 'PhotosController@store');
+
+Route::get('user/{id}', 'PhotosController@byUser')->name('byUser');

@@ -18,7 +18,12 @@ class CreatePhotosTable extends Migration
             $table->string('image_path1')->nullable();
             $table->string('comment')->nullable();
             $table->timestamps();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
