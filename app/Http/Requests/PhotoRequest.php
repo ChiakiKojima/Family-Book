@@ -14,7 +14,7 @@ class PhotoRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;       //Auth::check();
     }
 
     /**
@@ -26,10 +26,8 @@ class PhotoRequest extends FormRequest
     {
         return [
             'photo' => 'nullable|file|image|mimes:jpeg,png,jpg,gif',
-            'comment' => 'required_without:photo|string',
+            'comment' => 'required_without:photo',
             'user_id' => 'required',
-            'created_at' => 'required',
-            
         ];
     }
 }

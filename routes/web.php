@@ -19,6 +19,14 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('mypage', 'UserController@mypage')->name('mypage');
 Route::get('mypage/edit', 'UserController@edit')->name('userEdit');
 
+//Route::resource('photos','PhotosController');
+
 Route::post('/upload', 'PhotosController@store');
+Route::post('comment', 'CommentsController@storeComment');
 
 Route::get('user/{id}', 'PhotosController@byUser')->name('byUser');
+Route::get('photo/{id}', 'PhotosController@show');
+Route::delete('photo/{id}', 'PhotosController@destroy')->name('destroy');
+
+Route::patch('photo/edit/{id}', 'PhotosController@update');
+

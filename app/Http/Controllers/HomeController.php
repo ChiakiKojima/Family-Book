@@ -30,7 +30,7 @@ class HomeController extends Controller
         $users = User::all();
         $photos = Photo::latest('created_at')->get(); 
         
-        dump($photos);
+        //dump($photos);
         
         
         

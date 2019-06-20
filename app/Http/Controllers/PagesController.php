@@ -9,8 +9,5 @@ use App\Photo;
 
 class PagesController extends Controller
 {
-    public function byUser()
-    {
-        $test = User::with('photos')->get();
-    }
+    
 }

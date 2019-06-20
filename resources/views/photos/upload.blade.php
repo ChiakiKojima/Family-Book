@@ -22,7 +22,7 @@
                             {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                         </div>
                         
-                        
+                        {!! Form::hidden('user_id', $user->id) !!}
 
                     </div>
                 
