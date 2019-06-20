@@ -9,7 +9,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {!! Form::open(['url' => '/upload', 'files' => true]) !!}
+                {!! Form::open(['url' => 'upload', 'files' => true]) !!}
                     <div class="modal-body">
                     
                         <div class="form-group">
@@ -21,8 +21,7 @@
                             {!! Form::label('comment', 'コメント:') !!}
                             {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                         </div>
-                        
-                        {!! Form::hidden('user_id', $user->id) !!}
+                        {!! Form::hidden('user_id', Auth::user()->id) !!}
 
                     </div>
                 

@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $myself = Auth::user();
         $users = User::all();
         $photos = Photo::latest('created_at')->get(); 
         
@@ -34,6 +34,6 @@ class HomeController extends Controller
         
         
         
-        return view('home', compact('user', 'users', 'photos'));
+        return view('home', compact('myself', 'users', 'photos'));
     }
 }

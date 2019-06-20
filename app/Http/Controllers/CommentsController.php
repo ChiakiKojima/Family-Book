@@ -10,13 +10,14 @@ use App\Photo;
 
 class CommentsController extends Controller
 {
-    public function storeComment(Request $request)
+    public function store(Request $request)
     {
-        // $comment = $request->validate([             
-        //     'comment' => 'required',
-        // ]);
-        $input = \Request::all();
-        dd($input);
+        $input = $request->validated([             
+            'comment' => 'required|string',
+            'user_id' => 'required',
+            'photo_id' => 'required'
+        ]);
+        //dd($input);
         Comment::create($comment);
         return redirect('/');
     }

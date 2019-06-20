@@ -10,20 +10,18 @@
                 <div class="card-header">ユーザー情報の編集</div>
     
                 <div class="card-body">
-                    <form method="POST" action="＃">
-                        @csrf
-    
+                    {{Form::open(['url' => 'updated/profile', 'files' => true])}}                       
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">名前</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $myself->name }}">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $myself->email }}" required autocomplete="email" autofocus>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -36,7 +34,7 @@
                             <label for="user_image" class="col-md-4 col-form-label text-md-right">プロフィール画像</label>
     
                             <div class="col-md-6">
-                                {!! Form::file('thefile') !!}
+                                {!! Form::file('icon') !!}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -44,7 +42,7 @@
                                 {!! Form::submit('更新', ['class' => 'btn btn-primary btn-block form-control']) !!}
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

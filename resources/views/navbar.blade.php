@@ -17,17 +17,16 @@
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('mypage') }}"><i class="far fa-user"></i></a>
-                </li>
+                
                 <!-- ドロップダウンメニュー -->
                 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $myself->name }} <span class="caret"></span>
                     </a>
                 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         {{-- ⑥ --}}
+                        <a class="dropdown-item" href="{{ route('mypage') }}">プロフィール編集</a>
                         <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>

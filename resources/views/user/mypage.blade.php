@@ -15,19 +15,22 @@
     <div class="col-lg-6">
         <div>
             名前:
-            {{ $user->name }}
+            {{ $myself->name }}
         </div>
         <div>
         メールアドレス:
-        {{ $user->email }}
+        {{ $myself->email }}
+        
         </div>
     </div>
     <div class="col-lg-6">
+        
         プロフィール画像：
-        @if ( $user->icon == null )
+        
+        @if ( $myself->user_image == null )
             登録されていません。
         @else
-            <img class="card-img-top" src="#" alt="イメージ画像">
+            <img class="card-img-top col-lg-3" src="{{ $user->user_image }}" alt="イメージ画像">
         @endif
     </div>
 </div>

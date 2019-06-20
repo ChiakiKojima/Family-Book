@@ -12,16 +12,12 @@ use App\Photo;
 
 class PhotosController extends Controller
 {
-    public function upload()
-    {
-        
-    }
     
     public function store(PhotoRequest $request)
     {
         
         $data = $request->validated();
-        //dump($data);
+        //dd($data);
         
         if (isset($data['photo'])) {            
             //画像をIntervention Imageに読み込ませる
@@ -31,6 +27,8 @@ class PhotosController extends Controller
             $img->resize($width, null, function($constraint){
                 $constraint->aspectRatio();
             });
+            
+            //imagesフォルダは自動では作られない。自分で事前に作成しておくこと！
             $file_path = storage_path(). '/app/public/images/';
             //ファイル名
             $file_name = $request->file('photo')->getClientOriginalName();
@@ -45,12 +43,7 @@ class PhotosController extends Controller
         Photo::create($data);
         return redirect()->route('home');
     }
-    public function show($id)
-    {
-        $user = Auth::user();
-        $photo = Photo::findOrFail($id);
-        return view('photos.edit_photos', compact('user','photo'));     
-    }
+    
     public function update(PhotoRequest $request, $id)
     {
         $photo = Photo::findOrFail($id);
@@ -92,6 +85,7 @@ class PhotosController extends Controller
         return redirect('/');
     }
     public function byUser($id) {
+        $myself = Auth::user();
         $user = User::findOrFail($id);
         $user_id = $user['id'];
         //Photosテーブルのカラム「user_id」が、「$user_id」というデータを取得する
@@ -99,6 +93,8 @@ class PhotosController extends Controller
         //dump($user);
         //dd($photos);
 
-        return view('photos.by_user', compact('user', 'photos'));
+        return view('photos.by_user', compact('myself', 'user', 'photos'));
     }
+    
+    
 }
