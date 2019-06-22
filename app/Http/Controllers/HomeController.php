@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
@@ -29,11 +28,8 @@ class HomeController extends Controller
         $myself = Auth::user();
         $users = User::all();
         $photos = Photo::latest('created_at')->get(); 
-        
         //dump($photos);
-        
-        
-        
         return view('home', compact('myself', 'users', 'photos'));
     }
+    
 }

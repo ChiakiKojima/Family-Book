@@ -17,8 +17,21 @@
         </div>
 
     <div class="card-body">
-            
-        <form class="form-inline">
+            @unless ($photo->comments->isEmpty())
+                <ul>
+                    @foreach($photo->comments as $comment)
+                        <li>
+                            @if ($comment->user->user_image)
+                                <img class="card-img-top col-lg-2" src="{{ $comment->user->user_image }}" alt="イメージ画像">
+                            @else
+                                <i class="fas fa-user-circle"></i>
+                            @endif
+                                {{ $comment->user->name }}{{ $comment->comment }}
+                        </li>
+                    @endforeach
+                </ul>
+            @endunless
+        <div class="form-inline">
             <div class="form-group">
                 {!! Form::open(['url' => 'comment']) !!}
                     <div class="form-group">
@@ -32,6 +45,6 @@
                     </div>
                 {!! Form::close() !!} 
             </div>
-        </form>
+        </div>
     </div>
 </div>

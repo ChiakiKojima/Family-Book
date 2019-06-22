@@ -29,4 +29,5 @@ Route::get('user/{id}', 'PhotosController@byUser')->name('byUser');
 Route::delete('photo/{id}', 'PhotosController@destroy')->name('destroy');
 
 Route::patch('photo/edit/{id}', 'PhotosController@update');
+Route::post('searched/result', 'PhotosController@search');
 

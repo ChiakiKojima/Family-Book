@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\PhotoRequest;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
@@ -94,6 +94,24 @@ class PhotosController extends Controller
         //dd($photos);
 
         return view('photos.by_user', compact('myself', 'user', 'photos'));
+    }
+    
+    public function search(Request $request)
+    {
+        $myself = Auth::user();
+        $keyword = $request->validate([
+            'search' => 'required'
+        ]);
+        //dd($keyword);
+
+        $result = Photo::where('comment', 'LIKE', "%{$keyword['search']}%")
+            ->orWhereHas('user', function($q) use ($keyword){
+                $q->where('name', 'like', "%{$keyword['search']}%");
+            })
+            ->get();
+        //dd($result);
+        return view('photos.searched_result', compact('myself', 'keyword','result'));
+        
     }
     
     

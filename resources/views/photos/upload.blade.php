@@ -13,8 +13,8 @@
                     <div class="modal-body">
                     
                         <div class="form-group">
-                            写真：
-                            {!! Form::file('photo') !!}
+                            {!! Html::decode(Form::label('photo','<i class="fas fa-camera"></i>　写真を選択する')) !!}
+                            {!! Form::file('photo', ['class' => 'd-none']) !!}
                         </div>
                         
                         <div class="form-group">

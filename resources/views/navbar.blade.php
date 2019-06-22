@@ -9,7 +9,7 @@
             <ul class="navbar-nav mr-auto">
                 @guest
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('register') }}">新規アカウント登録</a>
+                    <a class="nav-link" href="{{ route('register') }}">新規ユーザー登録</a>
                 </li>
                 @endguest
                 @auth
@@ -37,15 +37,20 @@
                     </div>
                 </li>
                 
-             
+                 {{Form::open(['url' => 'searched/result', 'class' => 'form-inline my-2 my-lg-0'])}}
+                
+                <div class="form-group">
+                    {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Search']) !!}
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            {!! Form::close() !!}
             </ul>
             
-         
-          
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+             
+            
+            
             <button type="button" class="btn btn-secondary my-2 my-sm-0" data-toggle="modal" data-target="#upload">投稿を作成</button>
             @include('photos.upload')
             
