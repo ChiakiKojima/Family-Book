@@ -29,16 +29,17 @@
                                 @enderror
                             </div>
                         </div>
-    
                         <div class="form-group row">
-                            <label for="user_image" class="col-md-4 col-form-label text-md-right">プロフィール画像</label>
-    
-                            <div class="col-md-6">
-                                {!! Form::file('icon') !!}
-                            </div>
+                                <label for="icon" class="col-md-4 col-form-label text-md-right">プロフィール写真</label>
+                                
+                                <div id="app" class="col-md-6">
+                                <upload-form name="icon"></upload-form>
+                                </div>
+
                         </div>
+                        
                         <div class="form-group row">
-                            <div class="col-md-8">
+                            <div class="col-md-8 mx-auto">
                                 {!! Form::submit('更新', ['class' => 'btn btn-primary btn-block form-control']) !!}
                             </div>
                         </div>

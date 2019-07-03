@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">Family Book</a>
+        <a class="navbar-brand" href="/">Family Book</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,7 +14,7 @@
                 @endguest
                 @auth
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
                 </li>
                 
                 
@@ -26,7 +26,7 @@
                 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         {{-- ⑥ --}}
-                        <a class="dropdown-item" href="{{ route('mypage') }}">プロフィール編集</a>
+                        <a class="dropdown-item" href="{{ route('mypage') }}">プロフィール</a>
                         <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
@@ -40,7 +40,7 @@
                  {{Form::open(['url' => 'searched/result', 'class' => 'form-inline my-2 my-lg-0'])}}
                 
                 <div class="form-group">
-                    {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Search']) !!}
+                    {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => '投稿を検索']) !!}
                 </div>
                 <div class="form-group">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
@@ -52,7 +52,7 @@
             
             
             <button type="button" class="btn btn-secondary my-2 my-sm-0" data-toggle="modal" data-target="#upload">投稿を作成</button>
-            @include('photos.upload')
+            @include('photos.create')
             
             @endauth
         </div>

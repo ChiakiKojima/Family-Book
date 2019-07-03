@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./preview');
 
 window.Vue = require('vue');
 
@@ -26,7 +27,19 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import UploadForm from './components/UploadForm.vue';
+import EditForm from './components/EditForm.vue';
 
 const app = new Vue({
     el: '#app',
+    components:{UploadForm},
 });
+const fileInput = new Vue({
+    el: '#fileInput',
+    components:{UploadForm}
+});
+const editForm = new Vue({
+    el: '#editForm',
+    components:{EditForm}
+});
+

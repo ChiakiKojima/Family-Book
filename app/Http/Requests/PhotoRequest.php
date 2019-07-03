@@ -25,8 +25,8 @@ class PhotoRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'nullable|file|image|mimes:jpeg,png,jpg,gif',
-            'comment' => 'required_without:photo',
+            'photo' => 'nullable|file|image|mimes:jpeg,png,jpg',
+            'description' => 'required_without:photo',
             'user_id' => 'required',
         ];
     }

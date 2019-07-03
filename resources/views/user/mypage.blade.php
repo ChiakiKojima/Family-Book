@@ -30,7 +30,7 @@
         @if ( $myself->user_image == null )
             登録されていません。
         @else
-            <img class="card-img-top col-lg-3" src="{{ $user->user_image }}" alt="イメージ画像">
+            <img class="card-img-top col-lg-3" src="{{ $myself->user_image }}" alt="イメージ画像">
         @endif
     </div>
 </div>

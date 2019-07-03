@@ -84,7 +84,8 @@ class PhotosController extends Controller
         File::delete($image);
         return redirect('/');
     }
-    public function byUser($id) {
+    public function byUser($id)
+    {
         $myself = Auth::user();
         $user = User::findOrFail($id);
         $user_id = $user['id'];
@@ -94,6 +95,13 @@ class PhotosController extends Controller
         //dd($photos);
 
         return view('photos.by_user', compact('myself', 'user', 'photos'));
+    }
+    public function date($year, $month, $day)
+    {   
+        $myself = Auth::user();
+        $linked = $year.'-'.$month.'-'.$day;
+        $photos = Photo::whereDate('updated_at', $linked)->get();
+        return view('photos.each_date', compact('year', 'month', 'day', 'myself', 'photos'));
     }
     
     public function search(Request $request)

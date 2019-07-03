@@ -25,7 +25,14 @@ Route::post('updated/profile', 'UserController@update');
 Route::post('upload', 'PhotosController@store');
 Route::post('comment', 'CommentsController@store');
 
+Route::get('{year}/{month}/prev', 'HomeController@prevMonth')->name('prev');
+Route::get('{year}/{month}/next', 'HomeController@nextMonth')->name('next');
+
 Route::get('user/{id}', 'PhotosController@byUser')->name('byUser');
+Route::get('{year}/{month}/{day}', 'PhotosController@date')->name('date');
+
+
+
 Route::delete('photo/{id}', 'PhotosController@destroy')->name('destroy');
 
 Route::patch('photo/edit/{id}', 'PhotosController@update');

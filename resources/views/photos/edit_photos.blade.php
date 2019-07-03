@@ -15,35 +15,26 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                            <div class="modal-body">
-                                {!! Form::model($photo, ['method' => 'PATCH', 'url' => ['photo/edit', $photo->id], 'files' => true]) !!}
-                                    <div class="form-group">
-                                        {!! Html::decode(Form::label('photo','<i class="fas fa-camera"></i>　写真を選択する')) !!}
-                                        {!! Form::file('photo', ['class' => 'd-none']) !!}
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        {!! Form::label('comment', 'コメント:') !!}
-                                        {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
-                                    </div>
-                                    
-                                    {!! Form::hidden('user_id', $myself->id) !!}
-
-                                    <div class="form-group">
-                                        {!! Form::submit('シェア', ['class' => 'btn btn-primary form-control']) !!}
-                                    </div>
-                                {!! Form::close() !!}
-                            </div>
-                            <div class="modal-footer">
-                                <form action="{{ route('destroy',$photo->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                    投稿を削除する
-                                </form>    
-                            </div>
+                        {!! Form::model($photo, ['method' => 'PATCH', 'url' => ['photo/edit', $photo->id], 'files' => true]) !!}
+                        
+                            @component('photos.form')
+                                <div id="editForm">
+                                    <edit-form></edit-form>
+                                </div>
+                            @endcomponent
+                            
+                        {!! Form::close() !!}
+                        
+                        <div class="modal-footer">
+                            <form action="{{ route('destroy',$photo->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                投稿を削除する
+                            </form>    
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     @endif

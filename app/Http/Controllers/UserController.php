@@ -48,7 +48,7 @@ class UserController extends Controller
             $data['user_image'] = $read_path.$file_name;
             //dd($data);
         }
-        $user->update($data);
+        $myself->update($data);
         
         \Flash::success('ユーザー情報を更新しました。');
         return redirect()->route('mypage');
