@@ -15,6 +15,7 @@
                         <div id="fileInput">
                             <upload-form name="photo"></upload-form>
                         </div>
+                        
                     @endcomponent
                     
                 {!! Form::close() !!}    

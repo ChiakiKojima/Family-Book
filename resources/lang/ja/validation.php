@@ -149,7 +149,8 @@ return [
         'search' => '検索内容',
         'comment' => 'コメント',
         'email' => 'メールアドレス',
-        'photo' => '写真'
+        'photo' => '写真',
+        'description' => 'コメント',
         ],
 
 ];

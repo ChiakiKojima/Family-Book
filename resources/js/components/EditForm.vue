@@ -1,8 +1,8 @@
 <template>
     
         <div>
-            <label for="photo" class="col-form-label"><i class="fas fa-camera fa-lg"></i>選択</label>
-            <input type="file" name="photo" id="photo" class="d-none" v-on:change="GetImage">
+            <label for="editPhoto" class="col-form-label"><i class="fas fa-camera fa-lg"></i>選択</label>
+            <input type="file" name="photo" id="editPhoto" class="d-none" v-on:change="GetImage">
             <img v-bind:src="preview" alt="写真" class="w-100" v-show="true_or_false">
         </div>
     

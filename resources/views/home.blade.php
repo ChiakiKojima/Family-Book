@@ -67,14 +67,14 @@
                   <div class="d-flex">
                       @if ($user->user_image)
                           <div class="my-box w-25">
-                              <img class="rounded w-50" src="{{ '../../'.$user->user_image }}" alt="イメージ画像">
+                              <img class="rounded w-50" src="{{ asset($user->user_image) }}" alt="プロフィール画像">
                           </div>
                       @else
                           <h2 class="my-box w-25">
                               <i class="fas fa-user-circle text-primary"></i>
                           </h2>
                       @endif
-                          <h2 class="my-box w-25">{{ $user->name }}</h2>
+                          <h2 class="my-box">{{ $user->name }}</h2>
                   </div>
                   <br>
               </a>

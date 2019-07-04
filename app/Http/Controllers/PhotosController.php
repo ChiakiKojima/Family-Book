@@ -47,9 +47,10 @@ class PhotosController extends Controller
     public function update(PhotoRequest $request, $id)
     {
         $photo = Photo::findOrFail($id);
+        // dd($photo);
         $image = $photo->image_path1;
         $data = $request->validated();
-        //dump($data);
+        //dd($data);
         
         if (isset($data['photo'])) {
             File::delete($image);

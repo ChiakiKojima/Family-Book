@@ -59,7 +59,7 @@ class HomeController extends Controller
     {
         $myself = Auth::user();
         $users = User::all();
-        $photos = Photo::latest('created_at')->get();
+        $photos = Photo::latest('updated_at')->get();
         //月の日数を取得
         $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
         //当月1日の曜日を取得

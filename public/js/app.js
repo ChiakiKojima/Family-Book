@@ -37107,7 +37107,7 @@ var render = function() {
     _vm._v(" "),
     _c("input", {
       staticClass: "d-none",
-      attrs: { type: "file", name: "photo", id: "photo" },
+      attrs: { type: "file", name: "photo", id: "editPhoto" },
       on: { change: _vm.GetImage }
     }),
     _vm._v(" "),
@@ -37132,7 +37132,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "col-form-label", attrs: { for: "photo" } },
+      { staticClass: "col-form-label", attrs: { for: "editPhoto" } },
       [_c("i", { staticClass: "fas fa-camera fa-lg" }), _vm._v("選択")]
     )
   }
