@@ -19,7 +19,7 @@ class CommentsController extends Controller
             'user_id' => 'required',
             'photo_id' => 'required'
         ]);
-        dd($input);
+        //dd($input);
         Comment::create($input);
         return redirect('/');
     }

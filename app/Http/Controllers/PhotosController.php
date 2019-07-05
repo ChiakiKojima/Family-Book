@@ -85,7 +85,7 @@ class PhotosController extends Controller
         File::delete($image);
         return redirect('/');
     }
-    public function byUser($id)
+    public function eachUser($id)
     {
         $myself = Auth::user();
         $user = User::findOrFail($id);
@@ -95,7 +95,7 @@ class PhotosController extends Controller
         //dump($user);
         //dd($photos);
 
-        return view('photos.by_user', compact('myself', 'user', 'photos'));
+        return view('photos.each_user', compact('myself', 'user', 'photos'));
     }
     public function date($year, $month, $day)
     {   

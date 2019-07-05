@@ -4,7 +4,7 @@
 
     @include('errors.form_errors')
     
-   {{ $year.'年'.$month.'月'.$day.'日' }}
+   <h3 class="text-primary">{{ $year.'年'.$month.'月'.$day.'日' }}</h3>
    
    @foreach($photos as $photo)
        @include('photos.card')

@@ -15,6 +15,7 @@
           @endforeach
         </div>
         
+        <!--カレンダー-->
         <div class="col-lg-4">
             <h3 class="text-secondary">{{ $year }}年{{ $month }}月</h3>
             <table class="table">

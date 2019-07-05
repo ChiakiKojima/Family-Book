@@ -28,12 +28,13 @@ Route::post('comment', 'CommentsController@store');
 Route::get('{year}/{month}/prev', 'HomeController@prevMonth')->name('prev');
 Route::get('{year}/{month}/next', 'HomeController@nextMonth')->name('next');
 
-Route::get('user/{id}', 'PhotosController@byUser')->name('byUser');
+Route::get('user/{id}', 'PhotosController@eachUser')->name('byUser');
 Route::get('{year}/{month}/{day}', 'PhotosController@date')->name('date');
 
 
 
 Route::delete('photo/{id}', 'PhotosController@destroy')->name('destroy');
+Route::delete('delete/account', 'UserController@destroyUser')->name('deleteUserAccount');
 
 Route::patch('photo/edit/{id}', 'PhotosController@update');
 Route::post('searched/result', 'PhotosController@search');

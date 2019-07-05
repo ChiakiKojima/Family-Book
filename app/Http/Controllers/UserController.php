@@ -54,4 +54,12 @@ class UserController extends Controller
         return redirect()->route('mypage');
         
     }
+    public function destroyUser()
+    {
+        $myself = Auth::user();
+        //dd($myself);
+        $myself->delete();
+        
+        return redirect('/');
+    }
 }

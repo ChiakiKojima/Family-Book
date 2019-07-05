@@ -3,12 +3,17 @@
     <ul class="list-group list-group-flush">
         
         <li class="list-group-item">
+            @if ($photo->user->user_image)
+                <img class="mw-100" width="40" height="40" src="{{ asset($photo->user->user_image) }}" alt="プロフィール画像">
+            @else
+                <i class="fas fa-user-circle mr-1"></i>
+            @endif
             {{ $photo->user->name }}
-            {{ Carbon\Carbon::parse($photo->updated_at)->diffForHumans() }}
             
+            <div class="float-right">
+                {{ Carbon\Carbon::parse($photo->updated_at)->diffForHumans() }}
             <!--編集ボタン-->
             @if( $myself->id === $photo->user_id)
-                <div class="float-right">
                 <button type="button" class="btn btn-secondary my-2 my-sm-0" data-toggle="modal" data-target="#{{ 'edit'.$photo->id }}" >
                     <i class="fas fa-pencil-alt"></i>
                 </button>
@@ -50,27 +55,29 @@
     @endif
     <div class="card-body">
         <p class="card-text">{{ $photo->description }}</p>
-
+    
         @unless ($photo->comments->isEmpty())
-            <ul class="list-unstyled mb-0">
+        <div class="card-text">
+            <ul class="mb-0">
                 @foreach($photo->comments as $comment)
                     <li class="row">
                         @if ($comment->user->user_image)
-                            <img class="mw-100 mr-3 mb-1" width="40" height="40" src="{{ asset($comment->user->user_image) }}" alt="イメージ画像">
+                            <img class="mw-100 mr-3 mb-1" width="40" height="40" src="{{ asset($comment->user->user_image) }}" alt="プロフィール画像">
                         @else
-                            <i class="fas fa-user-circle"></i>
+                            <p class="mr-1"><i class="fas fa-user-circle"></i></p>
                         @endif
                             <p class="mr-3">{{ $comment->user->name }}</p>
                             <p class="text-left">{!! nl2br(e($comment->comment)) !!}</p>
                     </li>
                 @endforeach
             </ul>
+        </div>
         @endunless
         
         {!! Form::open(['url' => 'comment']) !!}
-            <div class="form-group">
-                {!! Html::decode(Form::label('comment', $myself->name.' <i class="far fa-comment"></i>')) !!}
-                {!! Form::textarea('comment', null, ['class' => 'form-control border-0','placeholder' => 'コメントを追加する', 'maxlength' => '100', 'rows' => "1" ]) !!}
+            <div class="form-group text-primary">
+                {!! Html::decode(Form::label($photo->id, $myself->name.' <i class="far fa-comment"></i>')) !!}
+                {!! Form::textarea('comment', null, ['class' => 'form-control border-0','placeholder' => 'コメントを追加する', 'maxlength' => '100', 'rows' => "1", 'id' => $photo->id ]) !!}
             </div>
             {!! Form::hidden('user_id', $myself->id) !!}
             {!! Form::hidden('photo_id', $photo->id) !!}
