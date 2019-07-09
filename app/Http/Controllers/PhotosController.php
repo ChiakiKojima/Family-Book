@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PhotoRequest;
-use Intervention\Image\Facades\Image;
+//use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Auth;
 use App\User;
 use App\Photo;
+use JD\Cloudder\Facades\Cloudder;
 
 class PhotosController extends Controller
 {
@@ -19,25 +20,30 @@ class PhotosController extends Controller
         $data = $request->validated();
         //dd($data);
         
-        if (isset($data['photo'])) {            
+        if (isset($data['photo'])) {
+            //dd($file);
+            $file_name = $data['photo']->getRealPath();
+            //dd($file_name);
+            Cloudder::upload($file_name, null, array("width"=>478, "crop"=>"scale", "folder" => "photos"));
+            $data['publicId'] = Cloudder::getPublicId();
+            $data['image_path1'] = Cloudder::secureShow($data['publicId']);
             //画像をIntervention Imageに読み込ませる
-            $img = Image::make($data['photo']);           
+            //$img = Image::make($data['photo']);           
             // 横幅を指定する。高さは自動調整
-            $width = 478;
-            $img->resize($width, null, function($constraint){
-                $constraint->aspectRatio();
-            });
-            
+            //$width = 478;
+            //$img->resize($width, null, function($constraint){
+            //     $constraint->aspectRatio();
+            // });
             //imagesフォルダは自動では作られない。自分で事前に作成しておくこと！
-            $file_path = storage_path(). '/app/public/images/';
+            //$file_path = storage_path(). '/app/public/images/';
             //ファイル名
-            $file_name = $request->file('photo')->getClientOriginalName();
+            //$file_name = $request->file('photo')->getClientOriginalName();
             //dump($file_name);
             //Intervention Imageに読み込ませたphotoを保存
-            $img->save($file_path.$file_name); 
+            //$img->save($file_path.$file_name); 
             //DBに保存する用に、パスを書き換える
-            $read_path = str_replace('/home/ec2-user/environment/Family-Book/storage/app/public/', 'storage/', $file_path);
-            $data['image_path1'] = $read_path.$file_name;
+            //$read_path = str_replace('/home/ec2-user/environment/Family-Book/storage/app/public/', 'storage/', $file_path);
+            //$data['image_path1'] = $read_path.$file_name;
             //dd($data);
         }
         Photo::create($data);
@@ -48,28 +54,33 @@ class PhotosController extends Controller
     {
         $photo = Photo::findOrFail($id);
         // dd($photo);
-        $image = $photo->image_path1;
+        $publicId = $photo->publicId;
         $data = $request->validated();
         //dd($data);
         
         if (isset($data['photo'])) {
-            File::delete($image);
+            Cloudder::destroyImage($publicId);
+            $file_name = $data['photo']->getRealPath();
+            Cloudder::upload($file_name, null, array("width"=>478, "crop"=>"scale", "folder" => "photos"));
+            $data['publicId'] = Cloudder::getPublicId();
+            $data['image_path1'] = Cloudder::secureShow($data['publicId']);
+            //File::delete($image);
             //画像をIntervention Imageに読み込ませる
-            $img = Image::make($data['photo']);           
+            //$img = Image::make($data['photo']);           
             // 横幅を指定する。高さは自動調整
-            $width = 478;
-            $img->resize($width, null, function($constraint){
-                $constraint->aspectRatio();
-            });
-            $file_path = storage_path(). '/app/public/images/';
+            //$width = 478;
+            //$img->resize($width, null, function($constraint){
+                //$constraint->aspectRatio();
+            // });
+            // $file_path = storage_path(). '/app/public/images/';
             //ファイル名
-            $file_name = $request->file('photo')->getClientOriginalName();
+            //$file_name = $request->file('photo')->getClientOriginalName();
             //dump($file_name);
             //Intervention Imageに読み込ませたphotoを保存
-            $img->save($file_path.$file_name); 
+            //$img->save($file_path.$file_name); 
             //DBに保存する用に、パスを書き換える
-            $read_path = str_replace('/home/ec2-user/environment/Family-Book/storage/app/public/', 'storage/', $file_path);
-            $data['image_path1'] = $read_path.$file_name;
+            //$read_path = str_replace('/home/ec2-user/environment/Family-Book/storage/app/public/', 'storage/', $file_path);
+            //$data['image_path1'] = $read_path.$file_name;
             //dd($data);
         }
         $photo->update($data);
@@ -79,10 +90,11 @@ class PhotosController extends Controller
     public function destroy($id)
     {
         $photo = Photo::findOrFail($id);
-        $image = $photo->image_path1;
+        $publicId = $photo->publicId;
+        Cloudder::destroyImage($publicId);
         $photo->delete();
         //Family-Bookフォルダ内の写真fileも削除する
-        File::delete($image);
+        //File::delete($image);
         return redirect('/');
     }
     public function eachUser($id)

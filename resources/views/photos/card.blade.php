@@ -4,7 +4,7 @@
         
         <li class="list-group-item">
             @if ($photo->user->user_image)
-                <img class="img-fluid" src="{{ asset($photo->user->user_image) }}" alt="プロフィール画像">
+                <img width="35" height="35" src="{{ $photo->user->user_image }}" alt="プロフィール画像">
             @else
                 <i class="fas fa-user-circle mr-1"></i>
             @endif
@@ -51,7 +51,7 @@
     </ul>
     
     @if($photo->image_path1)
-        <img src="{{ asset($photo->image_path1) }}" alt="photo">
+        <img src="{{ $photo->image_path1 }}" alt="photo">
     @endif
     <div class="card-body">
         <p class="card-text">{{ $photo->description }}</p>
@@ -62,7 +62,7 @@
                 @foreach($photo->comments as $comment)
                     <li class="row">
                         @if ($comment->user->user_image)
-                            <img class="mw-100 mr-3 mb-1" width="40" height="40" src="{{ asset($comment->user->user_image) }}" alt="プロフィール画像">
+                            <img class="mw-100 mr-1 mb-1" width="30" height="30" src="{{ $comment->user->user_image }}" alt="プロフィール画像">
                         @else
                             <p class="mr-1"><i class="fas fa-user-circle"></i></p>
                         @endif

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    protected $fillable = ['image_path1', 'description', 'user_id'];
+    protected $fillable = ['image_path1', 'description', 'user_id', 'publicId'];
     //日付ミューテーターを使う
     protected $dates = ['created_at', 'updated_at'];
     

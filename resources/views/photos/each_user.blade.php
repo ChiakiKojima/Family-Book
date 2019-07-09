@@ -6,9 +6,9 @@
     <div class="row">
         
         <div class="col-lg-6">
-           <div class="d-flex align-items-center">
+           <div class="d-flex align-items-center mb-3">
                 @if ($user->user_image)
-                    <img class="rounded" src="{{ asset($user->user_image) }}" alt="プロフィール画像">
+                    <img src="{{ $user->user_image }}" alt="プロフィール画像">
                 @else
                 <h1>
                     <i class="fas fa-user-circle text-primary"></i>
