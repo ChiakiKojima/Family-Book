@@ -87,22 +87,46 @@ class PhotosController extends Controller
     }
     public function eachUser($id)
     {
-        $myself = Auth::user();
+        
+        $year = date("Y"); //現在の年を取得
+        $month = date("n"); //現在の月を取得
         $user = User::findOrFail($id);
+        $myself = Auth::user();
+        $users = User::all();
         $user_id = $user['id'];
         //Photosテーブルのカラム「user_id」が、「$user_id」というデータを取得する
-        $photos = Photo::where('user_id', $user_id)->get(); 
+        $photos = Photo::where('user_id', $user_id)->latest('updated_at')->get(); 
         //dump($user);
         //dd($photos);
-
-        return view('photos.each_user', compact('myself', 'user', 'photos'));
+        $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
+        $first_day = date( "w", mktime( 0, 0, 0, $month, 1, $year ));
+        $results = Photo::whereYear('updated_at', $year)->whereMonth('updated_at', $month)->select('updated_at')->get();
+        if (!$results->isEmpty())
+        {
+            foreach($results as $result) {
+                $dates = $result->{'updated_at'}->day;
+                $updated_date[] = $dates;
+            }
+        }
+        return view('photos.each_user', compact('myself', 'user', 'photos', 'year', 'month', 'countdate', 'first_day','results','updated_date', 'users'));
     }
     public function date($year, $month, $day)
     {   
         $myself = Auth::user();
+        $users = User::all();
         $linked = $year.'-'.$month.'-'.$day;
-        $photos = Photo::whereDate('updated_at', $linked)->get();
-        return view('photos.each_date', compact('year', 'month', 'day', 'myself', 'photos'));
+        $photos = Photo::whereDate('updated_at', $linked)->latest('updated_at')->get();
+        $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
+        $first_day = date( "w", mktime( 0, 0, 0, $month, 1, $year ));
+        $results = Photo::whereYear('updated_at', $year)->whereMonth('updated_at', $month)->select('updated_at')->get();
+        if (!$results->isEmpty())
+        {
+            foreach($results as $result) {
+                $dates = $result->{'updated_at'}->day;
+                $updated_date[] = $dates;
+            }
+        }
+        return view('photos.each_date', compact('year', 'month', 'day', 'myself', 'photos', 'countdate', 'first_day','results','updated_date', 'users'));
     }
     
     public function search(Request $request)
@@ -121,6 +145,20 @@ class PhotosController extends Controller
         //dd($result);
         return view('photos.searched_result', compact('myself', 'keyword','result'));
         
+    }
+    public function common() {
+        $myself = Auth::user();
+        $users = User::all();
+        $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
+        $first_day = date( "w", mktime( 0, 0, 0, $month, 1, $year ));
+        $results = Photo::whereYear('updated_at', $year)->whereMonth('updated_at', $month)->select('updated_at')->get();
+        if (!$results->isEmpty())
+        {
+            foreach($results as $result) {
+                $dates = $result->{'updated_at'}->day;
+                $updated_date[] = $dates;
+            }
+        }
     }
     
     

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="/">Family Book</a>
+        <a class="navbar-brand" href="/">Family Book <i class="fas fa-home"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,7 +14,7 @@
                 @endguest
                 @auth
                 <li class="nav-item active">
-                    <a class="nav-link" href="/"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/"><span class="sr-only">(current)</span></a>
                 </li>
                 
                 
@@ -38,20 +38,56 @@
                 </li>
                 
                  {{Form::open(['url' => 'searched/result', 'class' => 'form-inline my-2 my-lg-0'])}}
+                    <div class="form-group">
+                        {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => '投稿を検索']) !!}
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                {!! Form::close() !!}
                 
-                <div class="form-group">
-                    {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => '投稿を検索']) !!}
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                </div>
-            {!! Form::close() !!}
+                <li class="nav-item active d-lg-none">
+                    <button type="button" class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#calender">
+                        カレンダー<i class="far fa-calendar-alt"></i>
+                    </button>
+                    <div class="modal" id="calender">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @include('pages.calender')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> 
+                <li class="nav-item active d-lg-none">
+                    <button type="button" class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#member">
+                        メンバー<i class="fas fa-users"></i>
+                    </button>
+                    <div class="modal" id="member">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    @include('pages.member')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> 
             </ul>
             
              
             
             
-            <button type="button" class="btn btn-secondary my-2 my-sm-0" data-toggle="modal" data-target="#upload">投稿を作成</button>
+            <button type="button" class="btn btn-secondary my-2" data-toggle="modal" data-target="#upload">投稿を作成</button>
             @include('photos.create')
             
             @endauth
