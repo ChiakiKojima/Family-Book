@@ -14,6 +14,11 @@ use JD\Cloudder\Facades\Cloudder;
 class UserController extends Controller
 {
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     private function getData() {
         $myself = Auth::user();
         $users = User::all();
@@ -28,6 +33,8 @@ class UserController extends Controller
                 $dates = $result->{'updated_at'}->day;
                 $updated_date[] = $dates;
             }
+        } else {
+            $updated_date[] = null;
         }
         return compact('myself', 'users', 'year', 'month','countdate', 'first_day', 'results', 'updated_date');
     }
@@ -86,9 +93,17 @@ class UserController extends Controller
     public function destroyUser()
     {
         $myself = Auth::user();
-        //dd($myself);
-        $publicId = $user->publicId;
-        Cloudder::destroyImage($publicId);
+        $photos = Photo::where('user_id', $myself->id)->select('publicId')->get();
+        //dd($photos);
+        if ($user_image = $myself->publicId) {
+            Cloudder::destroyImage($user_image);
+        }
+        if ($photos) {
+           foreach($photos as $photo) {
+               //dd($photo->publicId);
+               Cloudder::destroyImage($photo->publicId);
+           }
+        }
         $myself->delete();
         
         return redirect('/');
