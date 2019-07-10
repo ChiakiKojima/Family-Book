@@ -155,6 +155,8 @@ class PhotosController extends Controller
                 $dates = $result->{'updated_at'}->day;
                 $updated_date[] = $dates;
             }
+        } else {
+            $updated_date[] = null;
         }
         return compact('myself', 'users', 'year', 'month','countdate', 'first_day', 'results', 'updated_date');
     }
