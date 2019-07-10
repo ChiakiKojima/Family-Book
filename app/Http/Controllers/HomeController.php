@@ -55,7 +55,7 @@ class HomeController extends Controller
         
     }
     
-    public function common($year, $month)
+    private function common($year, $month)
     {
         $myself = Auth::user();
         $users = User::all();
@@ -74,6 +74,8 @@ class HomeController extends Controller
                 // 日にちだけで配列を作る
                 $updated_date[] = $dates;
             }
+        } else {
+            $updated_date[] = null;
         }
         return view('home', compact('myself', 'users', 'photos', 'year', 'month', 'countdate', 'first_day','results','updated_date'));
 
