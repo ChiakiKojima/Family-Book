@@ -13,45 +13,33 @@ use JD\Cloudder\Facades\Cloudder;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
+    
+    private function getData() {
+        $myself = Auth::user();
+        $users = User::all();
+        $year = date("Y"); //現在の年を取得
+        $month = date("n"); //現在の月を取得
+        $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
+        $first_day = date( "w", mktime( 0, 0, 0, $month, 1, $year ));
+        $results = Photo::whereYear('updated_at', $year)->whereMonth('updated_at', $month)->select('updated_at')->get();
+        if (!$results->isEmpty())
+        {
+            foreach($results as $result) {
+                $dates = $result->{'updated_at'}->day;
+                $updated_date[] = $dates;
+            }
+        }
+        return compact('myself', 'users', 'year', 'month','countdate', 'first_day', 'results', 'updated_date');
     }
     
     public function mypage() {
-        $myself = Auth::user();
-        $users = User::all();
-        $year = date("Y"); 
-        $month = date("n"); 
-        $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
-        $first_day = date( "w", mktime( 0, 0, 0, $month, 1, $year ));
-        $results = Photo::whereYear('updated_at', $year)->whereMonth('updated_at', $month)->select('updated_at')->get();
-        if (!$results->isEmpty())
-        {
-            foreach($results as $result) {
-                $dates = $result->{'updated_at'}->day;
-                $updated_date[] = $dates;
-            }
-        }
-        return view('user.mypage', compact('year', 'month', 'day', 'myself', 'countdate', 'first_day','results','updated_date', 'users'));
+        $data = $this->getData();
+        return view('user.mypage', $data);
     }
     
     public function edit() {
-        $myself = Auth::user();
-        $users = User::all();
-        $year = date("Y"); 
-        $month = date("n"); 
-        $countdate = date("t", mktime(0, 0, 0, $month, 1, $year));
-        $first_day = date( "w", mktime( 0, 0, 0, $month, 1, $year ));
-        $results = Photo::whereYear('updated_at', $year)->whereMonth('updated_at', $month)->select('updated_at')->get();
-        if (!$results->isEmpty())
-        {
-            foreach($results as $result) {
-                $dates = $result->{'updated_at'}->day;
-                $updated_date[] = $dates;
-            }
-        }
-        return view('user.edit', compact('year', 'month', 'day', 'myself', 'countdate', 'first_day','results','updated_date', 'users'));
+        $data = $this->getData();
+        return view('user.edit', $data);
     }
     
     public function update(UserRequest $request) {
